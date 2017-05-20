@@ -35,7 +35,7 @@ public:
     FLinearColor Color;
 
     UFUNCTION(BlueprintCallable, Category = "SuperConejo")
-    void Lanzar();
+    virtual void Lanzar();
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SuperConejo")
     USphereComponent * Colision;
