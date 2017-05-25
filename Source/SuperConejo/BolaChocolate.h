@@ -44,6 +44,10 @@ public:
     UStaticMeshComponent * Bola;
 	
 	
+    //colisiones
+    //OnBeginOverlap, necesario que este como UFUNCTION
+    UFUNCTION()
+    void OnBeginOverlap(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
 };
 
 //esta bola cuando es creada debo rotarla de tal forma que su ForawardVector que de mirando en la direccion con la que fue lanzado, esto no tiene implicaciones cuando usae fisiicas.

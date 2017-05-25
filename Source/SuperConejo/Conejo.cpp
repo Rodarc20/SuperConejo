@@ -183,10 +183,14 @@ void AConejo::RotateYaw(float AxisValue) {
 }
 
 void AConejo::Correr() {
+    UE_LOG(LogClass, Log, TEXT("Corriendo"));
+    if(GEngine)//no hacer esta verificación provocaba error al iniciar el editor
+        GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Corriendo"));
     Velocidad = VelocidadCorrer;
 }
 
 void AConejo::Caminar() {
+    UE_LOG(LogClass, Log, TEXT("Caminando"));
     Velocidad = VelocidadCaminar;
 }
 
@@ -203,4 +207,5 @@ void AConejo::Lanzar() {
         if(BolaChocolate)
             BolaChocolate->Lanzar();
     }
+
 }
