@@ -87,6 +87,7 @@ void ABolaChocolate::Lanzar() {// o podria recibir la direccion del lanzamiento 
 }
 
 //OnBeginOverlap
+//no debe destruirse con el conejo
 void ABolaChocolate::OnBeginOverlap(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult) {
     //verificar que el actor que inicia el solapamiento no sea si mismo con otro componente, y que no sea nulo 
     if ( (OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) ) {
