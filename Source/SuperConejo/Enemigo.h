@@ -34,5 +34,9 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "SuperConejo")
     virtual void RecibirAtaque(float Poder);
+
+    UFUNCTION(BlueprintCallable, Category = "SuperConejo")
+    virtual void Morir();
+
 	
 };

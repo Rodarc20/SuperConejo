@@ -4,6 +4,8 @@
 #include "EnemigoRata.h"
 
 AEnemigoRata::AEnemigoRata() {
+    SaludMaxima = 100.0f;
+    SaludActual = SaludMaxima;
 
     Cuerpo = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Cuerpo"));
     RootComponent = Cuerpo;
@@ -55,4 +57,18 @@ void AEnemigoRata::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+
+void AEnemigoRata::RecibirAtaque(float Poder) {
+    SaludActual = FMath::Clamp(SaludActual - Poder, 0.0f, SaludMaxima);
+    if (SaludActual <= 0.0f) {
+        Morir();
+    }
+    //lanzar sistema de particulas
+}
+
+void AEnemigoRata::Morir() {
+    Destroy();
+    //ya no deberia poder atacar, ni obstruir bolitas que choquen con migo, y biamente iniciar animacion
 }

@@ -42,6 +42,9 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "AnimalesRaros")
     UCapsuleComponent * Colision;
 	
+    virtual void RecibirAtaque(float Poder) override;
+
+    virtual void Morir() override;
 	
 	
 };

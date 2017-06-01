@@ -2,6 +2,8 @@
 
 #include "SuperConejo.h"
 #include "BolaChocolate.h"
+#include "Conejo.h"
+#include "Enemigo.h"
 
 
 // Sets default values
@@ -90,9 +92,13 @@ void ABolaChocolate::Lanzar() {// o podria recibir la direccion del lanzamiento 
 //no debe destruirse con el conejo
 void ABolaChocolate::OnBeginOverlap(UPrimitiveComponent * OverlappedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult) {
     //verificar que el actor que inicia el solapamiento no sea si mismo con otro componente, y que no sea nulo 
-    if ( (OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) ) {
+    if ( (OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && (OtherActor != GetOwner())) { //no es necesario el ultimo, solo para este caso particular en el que no quiero que el propio conejo active esta funconalidad
         if(GEngine)//no hacer esta verificación provocaba error al iniciar el editor
             GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Overlap"));
+        AEnemigo * const Animal = Cast<AEnemigo>(OtherActor);
+        if (Animal && !Animal->IsPendingKill()) {
+            Animal->RecibirAtaque(Poder);
+        }
         Destroy();
     }
 }
