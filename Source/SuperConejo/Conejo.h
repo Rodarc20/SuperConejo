@@ -59,6 +59,12 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SuperConejo")
     FVector ObjetivoCamara;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SuperConejo")
+    float SaludMaxima;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SuperConejo")
+    float SaludActual;
+
     FVector Movimiento;
 
     FVector Rotacion;
@@ -86,5 +92,7 @@ public:
     UFUNCTION(BlueprintCallable, Category = "SuperConejo")
     void Lanzar();
 
+    UFUNCTION(BlueprintCallable, Category = "SuperConejo")
+    void RecibirAtaque(float Poder);
 
 };

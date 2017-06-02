@@ -23,6 +23,9 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SuperConejo")
+    class AConejo * Objetivo;
+
     //para modificar o hacer consas con el crear funcionces que se llamen desde blueprint
     FTimerHandle AtacarTimer;//los timers no son propiedades por eso no hay un UPROPERTY aqui
 
@@ -31,6 +34,12 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SuperConejo")
     float SaludActual;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SuperConejo")
+    float VelocidadMovimiento;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "SuperConejo")
+    float TiempoAtaque;
 
     UFUNCTION(BlueprintCallable, Category = "SuperConejo")
     virtual void RecibirAtaque(float Poder);

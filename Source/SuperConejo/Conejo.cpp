@@ -14,6 +14,9 @@ AConejo::AConejo()
     VelocidadCaminar = 400.0f;
     VelocidadCorrer = 700.0f;
 
+    SaludMaxima = 100.0f;
+    SaludActual = SaludMaxima;
+
     Cuerpo = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Cuerpo"));
     RootComponent = Cuerpo;
     //obtenemos los objetos para los mesh
@@ -208,4 +211,8 @@ void AConejo::Lanzar() {
             BolaChocolate->Lanzar();
     }
 
+}
+
+void AConejo::RecibirAtaque(float Poder) {
+    SaludActual = FMath::Clamp(SaludActual - Poder, 0.0f, SaludMaxima);
 }
