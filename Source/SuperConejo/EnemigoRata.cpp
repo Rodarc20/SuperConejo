@@ -42,6 +42,13 @@ AEnemigoRata::AEnemigoRata() {
         OrejaIzquierda->SetRelativeLocationAndRotation(FVector(-5.0f, 20.0f, 102.0f), FRotator(0.0f, 0.0f, 0.0f));
     }
 
+    EfectoImpacto = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EfectoImpacto"));
+    EfectoImpacto->SetupAttachment(RootComponent);
+    static ConstructorHelpers::FObjectFinder<UParticleSystem> EfectoImpactoAsset(TEXT("ParticleSystem'/Game/SuperConejo/ParticleSystems/ImpactoChocolate.ImpactoChocolate'"));
+    if (EfectoImpactoAsset.Succeeded()) {
+        EfectoImpacto->SetTemplate(EfectoImpactoAsset.Object);
+    }
+    EfectoImpacto->SetRelativeLocation(FVector::ZeroVector);
 
 }
 
@@ -60,7 +67,11 @@ void AEnemigoRata::Tick(float DeltaTime)
 }
 
 
-void AEnemigoRata::RecibirAtaque(float Poder) {
+void AEnemigoRata::RecibirAtaque(float Poder, FVector ImpactPoint) {
+    //ese impact pinto por ahora lo recibo como un punto en el munodo, convertirlo a local
+    EfectoImpacto->Activate(false);
+    EfectoImpacto->SetRelativeLocation(ImpactPoint - GetActorLocation());
+    EfectoImpacto->Activate(true);
     SaludActual = FMath::Clamp(SaludActual - Poder, 0.0f, SaludMaxima);
     if (SaludActual <= 0.0f) {
         Morir();

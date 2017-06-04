@@ -42,7 +42,7 @@ public:
     float TiempoAtaque;
 
     UFUNCTION(BlueprintCallable, Category = "SuperConejo")
-    virtual void RecibirAtaque(float Poder);
+    virtual void RecibirAtaque(float Poder, FVector ImpactPoint);
 
     UFUNCTION(BlueprintCallable, Category = "SuperConejo")
     virtual void Morir();

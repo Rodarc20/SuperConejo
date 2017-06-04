@@ -25,7 +25,7 @@ void AEnemigo::Tick(float DeltaTime)
 
 }
 
-void AEnemigo::RecibirAtaque(float Poder) {
+void AEnemigo::RecibirAtaque(float Poder, FVector ImpactPoint) {
 
 }
 

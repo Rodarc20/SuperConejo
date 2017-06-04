@@ -97,7 +97,7 @@ void ABolaChocolate::OnBeginOverlap(UPrimitiveComponent * OverlappedComponent, A
             GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Overlap"));
         AEnemigo * const Animal = Cast<AEnemigo>(OtherActor);
         if (Animal && !Animal->IsPendingKill()) {
-            Animal->RecibirAtaque(Poder);
+            Animal->RecibirAtaque(Poder, GetActorLocation());
         }
         Destroy();
     }
