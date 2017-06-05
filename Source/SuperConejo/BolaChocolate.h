@@ -43,6 +43,8 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "SuperConejo")
     UStaticMeshComponent * Bola;
 	
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "SuperConejo")
+    UParticleSystemComponent * EfectoImpacto;
 	
     //colisiones
     //OnBeginOverlap, necesario que este como UFUNCTION

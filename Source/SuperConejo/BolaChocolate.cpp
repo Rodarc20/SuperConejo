@@ -4,6 +4,7 @@
 #include "BolaChocolate.h"
 #include "Conejo.h"
 #include "Enemigo.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 
 // Sets default values
@@ -55,6 +56,16 @@ ABolaChocolate::ABolaChocolate()
     Colision = CreateDefaultSubobject<USphereComponent>(TEXT("Colision"));
     Colision->SetupAttachment(RootComponent);
     Colision->InitSphereRadius(12.5f);
+
+
+    EfectoImpacto = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("EfectoImpacto"));
+    EfectoImpacto->SetupAttachment(RootComponent);
+    static ConstructorHelpers::FObjectFinder<UParticleSystem> EfectoImpactoAsset(TEXT("ParticleSystem'/Game/SuperConejo/ParticleSystems/ImpactoChocolate.ImpactoChocolate'"));
+    if (EfectoImpactoAsset.Succeeded()) {
+        EfectoImpacto->SetTemplate(EfectoImpactoAsset.Object);
+    }
+    EfectoImpacto->SetRelativeLocation(FVector::ZeroVector);
+
 }
 
 // Called when the game starts or when spawned
@@ -97,9 +108,22 @@ void ABolaChocolate::OnBeginOverlap(UPrimitiveComponent * OverlappedComponent, A
             GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Yellow, TEXT("Overlap"));
         AEnemigo * const Animal = Cast<AEnemigo>(OtherActor);
         if (Animal && !Animal->IsPendingKill()) {
-            Animal->RecibirAtaque(Poder, GetActorLocation());
+            UStaticMeshComponent * const CuerpoAnimal = Cast<UStaticMeshComponent>(OtherComp);
+            if(CuerpoAnimal){
+                Animal->RecibirAtaque(Poder, GetActorLocation());
+                Destroy();
+            }
         }
-        Destroy();
+        else {
+            EfectoImpacto->Activate(false);
+            EfectoImpacto->SetRelativeLocation(GetActorLocation());
+            EfectoImpacto->Activate(true);
+            UWorld * const World = GetWorld();
+            if (World) {
+                UGameplayStatics::SpawnEmitterAtLocation(World, EfectoImpacto->Template, FTransform(FRotator::ZeroRotator, GetActorLocation()));
+            }
+            Destroy();
+        }
     }
 }
 

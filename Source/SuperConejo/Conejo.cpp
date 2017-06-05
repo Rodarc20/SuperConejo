@@ -10,9 +10,9 @@ AConejo::AConejo()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-    Velocidad = 500.0f;
-    VelocidadCaminar = 400.0f;
-    VelocidadCorrer = 700.0f;
+    Velocidad = 600.0f;
+    VelocidadCaminar = 600.0f;
+    VelocidadCorrer = 1000.0f;
 
     SaludMaxima = 100.0f;
     SaludActual = SaludMaxima;
