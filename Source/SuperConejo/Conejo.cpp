@@ -10,6 +10,9 @@ AConejo::AConejo()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+    bReplicates = true;
+    bReplicateMovement = true;
+
     Velocidad = 600.0f;
     VelocidadCaminar = 600.0f;
     VelocidadCorrer = 1000.0f;
@@ -69,6 +72,7 @@ AConejo::AConejo()
     //FVector LocationCamara = 
     Camara->SetRelativeLocation(NewLocationCamara);//FVector(-310.f, 0.0f, 255.0f) antes se usaba ese vector a hora se calcula igual que la rotacion de la camara
     Camara->SetRelativeRotation(FRotator(-20.0f, 0.0f, 0.0f));
+    Camara->SetIsReplicated(true);
 
     PuntoLanzamiento = FVector(40.0f, 0.0f, 70.0f);
     //Busacndo la bola de chocolate, por defector, usare la clase bola de c++, podria usar la de bluprint, poner ambas aqui

@@ -4,6 +4,7 @@
 #include "SuperConejoGameModeBase.h"
 #include "Kismet/GameplayStatics.h"//para poder aceder a las estadisticas del juego y acceder al Chracter y trabajar con el
 #include "Blueprint/UserWidget.h" 
+#include "ConejoMultiplayerController.h"
 
 
 ASuperConejoGameModeBase::ASuperConejoGameModeBase() {
@@ -13,7 +14,15 @@ ASuperConejoGameModeBase::ASuperConejoGameModeBase() {
 	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass(TEXT("Class'/Script/SuperConejo.Conejo'"));
 	if (PlayerPawnBPClass.Class != NULL) {
 		DefaultPawnClass = PlayerPawnBPClass.Class;
+        Pawn1 = PlayerPawnBPClass.Class;
 	}
+
+    static ConstructorHelpers::FClassFinder<APawn> PlayerPawnBPClass2(TEXT("BlueprintGeneratedClass'/Game/SuperConejo/Blueprints/Conejo/Conejo_BP.Conejo_BP_C'"));
+    if (PlayerPawnBPClass2.Class != NULL) {
+        Pawn2 = PlayerPawnBPClass2.Class;
+    }
+
+    PlayerControllerClass = AConejoMultiplayerController::StaticClass();
 }
 
 void ASuperConejoGameModeBase::BeginPlay() {
@@ -29,3 +38,16 @@ void ASuperConejoGameModeBase::BeginPlay() {
 }
 
 void ASuperConejoGameModeBase::Tick(float DeltaTime) {}
+
+UClass* ASuperConejoGameModeBase::GetDefaultPawnClassForController(AController* InController)
+{
+	/* Override Functionality to get Pawn from PlayerController */
+	AConejoMultiplayerController* MyController = Cast<AConejoMultiplayerController>(InController);
+	if (MyController)
+	{
+        return MyController->GetPlayerPawnClass();
+	}
+ 
+	/* If we don't get the right Controller, use the Default Pawn */
+	return DefaultPawnClass;
+}
