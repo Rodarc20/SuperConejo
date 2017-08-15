@@ -81,6 +81,7 @@ void AArista::Actualizar() {
     //FVector Diferencia = TargetNodo->GetActorLocation() - SourceNodo->GetActorLocation();
     FVector Diferencia = TargetNodo->GetTransform().GetLocation() - SourceNodo->GetTransform().GetLocation();//deberia ser solo los valores de y y z, funciona ahora por que en ambos x es 0, pero falla en el de abajo
     FVector Direccion = Diferencia.GetSafeNormal();
+    //FVector Direccion = Diferencia;
     //FVector Direccion = Diferencia.GetClampedToSize(1.0f, 1.0f);
     //FVector NewLocation(Diferencia/2 + SourceNodo->GetActorLocation());//ejes invertidos a los recibidos
     FVector NewLocation(Diferencia/2 + SourceNodo->GetTransform().GetLocation());//ejes invertidos a los recibidos
@@ -101,7 +102,8 @@ void AArista::Actualizar() {
         angleYaw = 360 - angleYaw;
     }
     //FRotator NewRotation(0.0f, 0.0f, angleRoll);
-    UE_LOG(LogClass, Log, TEXT("angleYaw = %f, %f"), Direccion.X, Direccion.Y);
+    UE_LOG(LogClass, Log, TEXT("Diferencia = %f, %f, %f"), Diferencia.X, Diferencia.Y, Diferencia.Z);
+    UE_LOG(LogClass, Log, TEXT("Direccion = %f, %f, %f"), Direccion.X, Direccion.Y, Direccion.Z);
     FRotator NewRotation(angleRoll, angleYaw, 0.0f);
     //FRotator NewRotation(angleRoll, 0.0f, 0.0f);
     //FRotator NewRotation(0.0f, angleYaw, 0.0f);
@@ -111,7 +113,9 @@ void AArista::Actualizar() {
     //NuevoTransform.SetRotation(NewRotation.Quaternion());
     //SetActorRelativeTransform(NuevoTransform);
     SetActorRelativeLocation(NewLocation);
-    SetActorRelativeRotation(NewRotation);
+    //SetActorRelativeRotation(NewRotation);
+    FRotator rot = FRotationMatrix::MakeFromX(Diferencia).Rotator();
+    SetActorRelativeRotation(rot);
 
     
     Distancia = Diferencia.Size()-3;
