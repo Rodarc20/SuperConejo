@@ -2,7 +2,6 @@
 
 using UnrealBuildTool;
 using System.Collections.Generic;
-
 public class SuperConejoEditorTarget : TargetRules
 {
 	public SuperConejoEditorTarget(TargetInfo Target)
@@ -23,3 +22,12 @@ public class SuperConejoEditorTarget : TargetRules
 		OutExtraModuleNames.AddRange( new string[] { "SuperConejo" } );
 	}
 }
+/*public class SuperConejoEditorTarget : TargetRules
+{
+	public SuperConejoEditorTarget(TargetInfo Target) : base(Target)
+	{
+		Type = TargetType.Editor;
+
+		ExtraModuleNames.AddRange( new string[] { "SuperConejo" } );
+	}
+}*/

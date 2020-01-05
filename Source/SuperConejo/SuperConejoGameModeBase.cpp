@@ -2,6 +2,7 @@
 
 #include "SuperConejo.h"
 #include "SuperConejoGameModeBase.h"
+#include "Public/UObject/ConstructorHelpers.h"
 #include "Kismet/GameplayStatics.h"//para poder aceder a las estadisticas del juego y acceder al Chracter y trabajar con el
 #include "Blueprint/UserWidget.h" 
 #include "ConejoMultiplayerController.h"
